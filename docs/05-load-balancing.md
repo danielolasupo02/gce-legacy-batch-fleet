@@ -18,7 +18,7 @@ first taken out of traffic and then recreated.
 
 ## How It Works
 
-![How health checks drive traffic and auto-healing](../screenshots/health-check-flow.png)
+![How health checks drive traffic and auto-healing](../screenshots/health-check-flow.PNG)
 
 ```
               Google health checkers (35.191.x / 130.211.x)
@@ -213,13 +213,13 @@ OUT=~/phase05-evidence.txt ./scripts/phase-05/verify.sh
 ### Screenshots
 
 **Backends healthy in the load balancer**
-![Load balancer backends healthy](../screenshots/09-lb-backends-healthy.png)
+![Load balancer backends healthy](../screenshots/09-lb-backends-healthy.PNG)
 
 **Health check configuration**
-![Health check configuration](../screenshots/10-health-check-config.png)
+![Health check configuration](../screenshots/10-health-check-config.PNG)
 
 **Requests spread across the fleet**
-![Round robin across nodes](../screenshots/11-curl-lb-round-robin.png)
+![Round robin across nodes](../screenshots/11-curl-lb-round-robin.PNG)
 
 ## Notes & Issues
 
