@@ -20,20 +20,6 @@ first taken out of traffic and then recreated.
 
 ![How health checks drive traffic and auto-healing](../screenshots/health-check-flow.PNG)
 
-```
-              Google health checkers (35.191.x / 130.211.x)
-                 │            │            │
-      GET /healthz every 10s, to EACH node separately
-                 ▼            ▼            ▼
-           batch-node-a  batch-node-b  batch-node-c
-              200 ✓         200 ✓        503 ✗  (3 failures in a row)
-                 │            │            │
-                 └─────┬──────┘            │
-                       ▼                   ▼
-   Load balancer: send traffic       MIG auto-healing: recreate
-   only to a and b                   node c from the template
-```
-
 ### What runs on each node
 Every node runs its own independent copy of the batch application, a small
 Python program (standard library only) installed by the startup script as the
