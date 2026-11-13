@@ -35,6 +35,8 @@ A self-healing Google Compute Engine fleet for a legacy batch application that c
 - The load balancer kept serving from the other zones throughout.
 - **Stretch goals:** Spot VMs and cross-zone distribution.
 
+**Autoscaling is not used, by design.** Google Cloud does not allow autoscaling on MIGs with stateful configuration, and this fleet keeps each node's data disk and shard across recreation. See [Phase 4](docs/04-managed-instance-group.md).
+
 Evidence is in [`screenshots/`](screenshots/).
 
 ## Repository layout
@@ -56,8 +58,6 @@ terraform apply
 ```
 
 Credentials and `*.tfvars` are never committed.
-
-## Cleanup
 
 ```bash
 terraform destroy

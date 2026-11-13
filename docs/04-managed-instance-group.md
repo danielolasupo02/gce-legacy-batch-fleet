@@ -163,6 +163,22 @@ OUT=~/phase04-evidence.txt ./scripts/phase-04/verify.sh
 
 ## Notes & Issues
 
+### Decision: no autoscaling
+The fleet runs a fixed three nodes with auto-healing but no autoscaler. That
+is a consequence of the stateful design, not an omission. Google Cloud states
+that "you cannot use autoscaling or scaling schedules if your MIG has stateful
+configuration", and this MIG has two kinds: the preserved `batch-data` disk
+and, from Phase 6, per-instance metadata. Autoscaling assumes any node can be
+deleted on scale-in, while stateful configuration exists to keep a specific
+node's disk and identity. The free trial's 8 vCPU cap would also limit any
+scaling to one extra node, with nothing left for auto-healing replacements.
+
+A production version would split the roles: a small stateful core for
+coordination, and a stateless, autoscaled worker MIG pulling jobs from a
+shared queue or bucket.
+
+Source: [Configuring stateful MIGs: Limitations](https://cloud.google.com/compute/docs/instance-groups/configuring-stateful-migs#limitations)
+
 ### Decision: delete the Phase 3 test VM first
 The test VM uses 2 vCPUs. With it running, the three MIG nodes would bring the
 total to 8, the free trial maximum, leaving nothing for a replacement during
